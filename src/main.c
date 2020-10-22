@@ -25,18 +25,18 @@ _Bool is_greater(const union flp_num_t* const num1, const float num2, const char
     }
 }
 
-struct eqn_sln_t solve_sys_of_eqns(const union flp_num_t* const deviation, const char num_type) {
-    struct eqn_sln_t solution;
+struct eqn_sln_t solve_sys_of_eqns(const union flp_num_t* const dvn, const char num_type) {
+    struct eqn_sln_t sln;
     if (num_type == 'f') {
-        solution.x1.f = FORMULA_FOR_X1(deviation->f);
-        solution.x2.f = FORMULA_FOR_X2(deviation->f);
+        sln.x1.f = FORMULA_FOR_X1(dvn->f);
+        sln.x2.f = FORMULA_FOR_X2(dvn->f);
     } else if (num_type == 'd') {
-        solution.x1.d = FORMULA_FOR_X1(deviation->d);
-        solution.x2.d = FORMULA_FOR_X2(deviation->d);
+        sln.x1.d = FORMULA_FOR_X1(dvn->d);
+        sln.x2.d = FORMULA_FOR_X2(dvn->d);
     } else {
         error_handle("Unknown num type passed to function \'solve_sys_of_eqns\'");
     }
-    return solution;
+    return sln;
 }
 
 union flp_num_t calculate_dist(const struct eqn_sln_t cur_sln, const struct eqn_sln_t* const targeted_sln, const char num_type) {
