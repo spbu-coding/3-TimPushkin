@@ -75,8 +75,8 @@ union flp_num_t calculate_dvn(const struct eqn_sln_t* const targeted_sln, const 
 }
 
 int main() {
-    struct eqn_sln_t targeted_sln = TARGETED_SOLUTION;
-    union flp_num_t dvn_f = calculate_dvn(&targeted_sln, 'f'), dvn_d = calculate_dvn(&targeted_sln, 'd');
+    const struct eqn_sln_t targeted_sln = TARGETED_SOLUTION;
+    const union flp_num_t dvn_f = calculate_dvn(&targeted_sln, 'f'), dvn_d = calculate_dvn(&targeted_sln, 'd');
     if (printf("Deviation in floats: %.*f\n", DIGITS_TO_PRINT, dvn_f.f) < 0 || printf("Deviation in doubles: %.*lf\n", DIGITS_TO_PRINT, dvn_d.d) < 0) {
         error_handle("Printing to stdout failed");
     }
