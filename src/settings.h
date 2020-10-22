@@ -2,8 +2,8 @@
 #define SETTINGS_H
 
 // Execution and output settings
-#define DIGITS_TO_PRINT 60
 #define MAX_LOOP_DUR 100
+#define DIGITS_TO_PRINT 60
 // Calculation settings
 #define TARGETED_SOLUTION {1.0f, 1.0f}
 #define TARGETED_DIST 0.000001f
