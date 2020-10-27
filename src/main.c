@@ -28,11 +28,11 @@ _Bool is_greater(const union flp_num_t* const num1, const float num2, const char
 struct eqn_sln_t solve_sys_of_eqns(const union flp_num_t* const dvn, const char num_type) {
     struct eqn_sln_t sln;
     if (num_type == 'f') {
-        sln.x1.f = FORMULA_FOR_X1(dvn->f);
-        sln.x2.f = FORMULA_FOR_X2(dvn->f);
+        sln.x1.f = FORMULA_FOR_X1_F(dvn->f);
+        sln.x2.f = FORMULA_FOR_X2_F(dvn->f);
     } else if (num_type == 'd') {
-        sln.x1.d = FORMULA_FOR_X1(dvn->d);
-        sln.x2.d = FORMULA_FOR_X2(dvn->d);
+        sln.x1.d = FORMULA_FOR_X1_D(dvn->d);
+        sln.x2.d = FORMULA_FOR_X2_D(dvn->d);
     } else {
         error_handle("Unknown num type passed to function \'solve_sys_of_eqns\'");
     }
@@ -55,18 +55,18 @@ union flp_num_t calculate_dvn(const struct eqn_sln_t* const targeted_sln, const 
     union flp_num_t dvn, dist;
     unsigned int cnt = 0;
     if (num_type == 'f') {
-        for (dvn.f = INIT_DEVIATION, dist.f = INIT_DIST; is_greater(&dist, TARGETED_DIST, 'f') && cnt <= MAX_LOOP_DUR; dvn.f /= DIV_RATIO, cnt++) {
+        for (dvn.f = INIT_DEVIATION_F, dist.f = INIT_DIST; is_greater(&dist, TARGETED_DIST, 'f') && cnt <= MAX_LOOP_DUR; dvn.f /= DIV_RATIO, cnt++) {
             dist = calculate_dist(solve_sys_of_eqns(&dvn, 'f'), targeted_sln, 'f');
         }
         if (cnt > MAX_LOOP_DUR) {
-            error_handle("Loop duration in floats exceeded");
+            printf("Loop duration in floats exceeded\n");
         }
     } else if (num_type == 'd') {
-        for (dvn.d = INIT_DEVIATION, dist.d = INIT_DIST; is_greater(&dist, TARGETED_DIST, 'd') && cnt <= MAX_LOOP_DUR; dvn.d /= DIV_RATIO, cnt++) {
+        for (dvn.d = INIT_DEVIATION_D, dist.d = INIT_DIST; is_greater(&dist, TARGETED_DIST, 'd') && cnt <= MAX_LOOP_DUR; dvn.d /= DIV_RATIO, cnt++) {
             dist = calculate_dist(solve_sys_of_eqns(&dvn, 'd'), targeted_sln, 'd');
         }
         if (cnt > MAX_LOOP_DUR) {
-            error_handle("Loop duration in doubles exceeded");
+            printf("Loop duration in doubles exceeded\n");
         }
     } else {
         error_handle("Unknown num type passed to function \'calculate_dvn\'");
